@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  mqtt_broker:
+    image: eclipse-mosquitto
+    restart: always
+    volumes:
+      - mqtt_conf_storage:/mosquitto/config
+
+    ports:
+      - 1883:1883
+      - 9001:9001
+
+
+  mqtt_subclient:
+    image: akolkarkalpit/mqttclient_sub
+    restart: always
+    volumes:
+      - mqtt_clients_readings:/home/
+    environment:
+      BROKER_IP: ip_address
+      TOPIC: topic_you _want_to_subscribe
+
+volumes:
+  mqtt_clients_readings
+  mqtt_conf_storage
